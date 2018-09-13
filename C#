@@ -1,0 +1,25 @@
+if(textBox1.Text="THY")
+{
+  baglanti.Open();
+  SqlCommand cmd = new SqlCommand();
+  cmd.Connection = baglanti;
+  cmd.CommandText ="Select * from tablo where firma='THY'";
+  SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+  DataSet ds = new DataSet();
+  adapter.Fill(ds,tablo);
+  dataGridView1.DataSource=ds.tables["tablo"];
+  baglanti.Close();
+ }
+ 
+ if(TextBox1.Text="Lufthansa")
+{
+  baglanti.Open();
+  SqlCommand cmd = new SqlCommand();
+  cmd.Connection = baglanti;
+  cmd.CommandText ="Select * from tablo where firma='Lufthansa'";
+  SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+  DataSet ds = new DataSet();
+  adapter.Fill(ds,tablo);
+  dataGridView1.DataSource=ds.tables["tablo"];
+  baglanti.Close();
+ }
