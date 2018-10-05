@@ -1,25 +1,51 @@
-if(textBox1.Text="THY")
-{
-  baglanti.Open();
-  SqlCommand cmd = new SqlCommand();
-  cmd.Connection = baglanti;
-  cmd.CommandText ="Select * from tablo where firma='THY'";
-  SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-  DataSet ds = new DataSet();
-  adapter.Fill(ds,tablo);
-  dataGridView1.DataSource=ds.tables["tablo"];
-  baglanti.Close();
- }
- 
- if(TextBox1.Text="Lufthansa")
-{
-  baglanti.Open();
-  SqlCommand cmd = new SqlCommand();
-  cmd.Connection = baglanti;
-  cmd.CommandText ="Select * from tablo where firma='Lufthansa'";
-  SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-  DataSet ds = new DataSet();
-  adapter.Fill(ds,tablo);
-  dataGridView1.DataSource=ds.tables["tablo"];
-  baglanti.Close();
- }
+  // Veritabanı bağlantısı kuruldu.
+  private void stackGrid()
+        {
+            con = new SqlConnection("server=.; Initial Catalog=TOSHIBA;Integrated Security=SSPI");
+            da = new SqlDataAdapter("Select * From ucus", con);
+            ds = new DataSet();
+            con.Open();
+            da.Fill(ds, "ucus");
+            dataGridView1.DataSource = ds.Tables["ucus"];
+            con.Close();
+        }
+   private void Form1_Load(object sender, EventArgs e)
+        {
+            griddoldur();
+        }
+
+       // Uçuş bilgilerini textbox üzerinden veritabanına kayıt ettik.
+   private void button1_Click(object sender, EventArgs e)
+        {
+            cmd = new SqlCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "insert into ucus(ucus_id,ucus_guzergah,ucus_saat,ucak_marka) values (" + textBox1.Text + ",'" + textBox2.Text + "','" + textBox3.Text + "','" + textBox4.Text + "')";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            stackGrid();
+        }
+
+        //Güncelleme butonu ile güncelleme işlerini tamamladık.
+    private void button3_Click(object sender,EventArgs e)
+        {
+            cmd =new SqlCommand();
+            con.Open();
+            cmd.Connection= con;
+            cmd.CommandText="update ucus set ucus_guzergah='"+ textBox2.Text+"',ucus_saat='"+ textBox3.Text+"',ucak_marka='"+ textBox4.Text+"' where ucus_id="+textBox1.Text+"";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            stackGrid();
+        }
+
+        //Silme butonu ile tarihi geçmiş uçuşları siliyoruz.
+    private void button4_Click(object sender,EventArgs e)
+         {
+            cmd =new SqlCommand();
+            con.Open();
+            cmd.Connection= con;
+            cmd.CommandText="delete from ucus where ucus_saat='01.10.2018';
+            cmd.ExecuteNonQuery();
+            con.Close();
+            stackGrid();
+         }
