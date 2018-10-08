@@ -15,7 +15,7 @@
         }
 
        // Uçuş bilgilerini textbox üzerinden veritabanına kayıt ettik.
-   private void button1_Click(object sender, EventArgs e)
+   private void insert_Click(object sender, EventArgs e)
         {
             cmd = new SqlCommand();
             con.Open();
@@ -27,7 +27,7 @@
         }
 
         //Güncelleme butonu ile güncelleme işlerini tamamladık.
-    private void button3_Click(object sender,EventArgs e)
+    private void update_Click(object sender,EventArgs e)
         {
             cmd =new SqlCommand();
             con.Open();
@@ -39,7 +39,7 @@
         }
 
         //Silme butonu ile tarihi geçmiş uçuşları siliyoruz.
-    private void button4_Click(object sender,EventArgs e)
+    private void delete_Click(object sender,EventArgs e)
          {
             cmd =new SqlCommand();
             con.Open();
